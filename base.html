@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>base64</title>
+        <style>
+        img {
+            width: 100px;
+        } 
+        textarea {
+            width: 100%;
+            height: 520px;
+        }
+        </style>    
+</head>
+<body>
+
+    <h2>Convert img to base64</h2>
+    <p>Select a File to Load: example: avatar.jpg</p>
+    <input id="inputFileToLoad" type="file" onchange="loadImageFileAsURL();" />
+
+
+    <p>File Contents as DataURL:</p>
+    <textarea id="textAreaFileContents"></textarea>
+
+    <br>
+    <h4>After added file img - below you see the image read from base64</h4>
+    <br>
+
+    <img id="img" src="kotek1.jpg" alt="">
+
+
+
+<script>
+console.log('START');
+
+function loadImageFileAsURL()
+{
+    var filesSelected = document.getElementById("inputFileToLoad").files;
+    var img = document.getElementById('img');
+
+    if (filesSelected.length > 0)
+    {
+        console.log(filesSelected);
+        console.log(filesSelected[0]);
+        console.log(filesSelected[0].name);
+        console.log(filesSelected[0].lastModified);
+        console.log(filesSelected[0].size);
+        console.log(filesSelected[0].type);
+        
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function(fileLoadedEvent)
+        {
+            var textAreaFileContents = document.getElementById("textAreaFileContents");
+
+            textAreaFileContents.innerHTML = fileLoadedEvent.target.result;
+            img.src = fileLoadedEvent.target.result;
+        };
+
+        fileReader.readAsDataURL(fileToLoad);
+
+    }
+}
+
+</script>  
+
+</body>
+</html>
+
